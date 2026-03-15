@@ -1,0 +1,23 @@
+Vercel Deployment Settings for DevRoom (Next.js App)
+
+When importing your repository into Vercel, use the following settings:
+
+1. Framework Preset:
+   Next.js
+
+2. Root Directory:
+   next-app 
+   (Important: In Vercel, click "Edit" on the Root Directory setting during import and change it to "next-app". If you forget this, the build will fail because package.json is not in the root of the repository.)
+
+3. Build and Output Settings:
+   Vercel will autofill these when you select the Next.js preset, but ensure they are set to:
+   - Build Command: npm run build
+   - Output Directory: .next
+   - Install Command: npm install
+
+4. Environment Variables:
+   Currently, the next-app does not strictly require any environment variables to build successfully. 
+   However, since you have a separate socket-server in the repository, you'll eventually need to connect the frontend to the deployed backend. When you deploy the socket-server, you should add your target URL here (for example):
+   - Name: NEXT_PUBLIC_SOCKET_URL
+   - Value: https://your-deployed-socket-server-url.com
+   (If you haven't configured environment variables in your code yet, you can leave this blank for now and just deploy the UI.)
