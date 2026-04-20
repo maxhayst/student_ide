@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  socket-server:
+    build: ./socket-server
+    container_name: devroom-socket
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - CLIENT_URL=${CLIENT_URL}
+    env_file:
+      - ./socket-server/.env
+
+  next-app:
+    build: ./next-app
+    container_name: devroom-next
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SOCKET_URL=${NEXT_PUBLIC_SOCKET_URL}
+    env_file:
+      - ./next-app/.env
+    depends_on:
+      - socket-server
